@@ -118,8 +118,7 @@ def game_hash
 end
 
 #returns the number of points scored for that player
-def num_points_scored (name)
-  points = []
+def num_points_scored(name)
   game_hash.each do |place, team|
     team.each do |attribute, data|
       if attribute == :players
@@ -133,4 +132,32 @@ def num_points_scored (name)
   end
 end
 
-# puts num_points_scored ("Brendan Haywood") => 6
+#puts num_points_scored ("Brendan Haywood") => 6
+
+#returns the shoe size for a given player
+  def shoe_size(name)
+    game_hash.each do |place, team|
+      team.each do |attribute, data|
+        if attribute == :players
+          data.each do |player_name, player_details|
+            if player_name == name
+              return player_details[:shoe]
+            end
+          end
+        end
+      end
+    end
+  end
+
+  # puts shoe_size("Mason Plumlee") => 19
+
+  #returns array of team colors
+  def team_colors(team_name)
+    game_hash.each do |place, team|
+      if team[:team_name] == team_name
+        return team[:colors]
+      end
+    end
+  end
+
+  # puts team_colors("Brooklyn Nets") => Black, White
