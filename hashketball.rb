@@ -161,3 +161,14 @@ end
   end
 
   # puts team_colors("Brooklyn Nets") => Black, White
+
+  #returns array of team names
+  def team_names_each
+      array_team_names = []
+      game_hash.each do |place, team|
+        array_team_names.push(team[:team_name])
+      end
+    array_team_names
+  end
+
+  # puts team_names_each => Brooklyn Nets, Charlotte Hornets
