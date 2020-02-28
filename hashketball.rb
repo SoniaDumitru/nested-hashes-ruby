@@ -185,14 +185,35 @@ end
   # puts player_numbers("Brooklyn Nets") => 30,11,1,31
 
   #returns the hash of a player's stats
-  def player_stats(name)
-    game_hash.each do |place, team|
-        team[:players].each do |player_name, player_stats|
-          if player_name == name
-            return player_stats
+  def player_stats(player_name)
+      new_hash = {}
+      game_hash.each do |place, team|
+        team.each do |attributes, data|
+          if attributes == :players
+            data.each do |player|
+              if player[:player_name] == player_name
+                new_hash = player.delete_if do |k,v|
+                  k == :name
+                end
+            end
+          end
         end
       end
     end
+    new_hash
   end
 
-  # puts player_stats("Ben Gordon") => {:number=>8, :shoe=>15, :points=>33, :rebounds=>3, :assists=>2, :steals=>1, :blocks=>1, :slam_dunks=>0}
+  puts player_stats("Ben Gordon")
+
+  #returns the number of rebounds associated with the player that has the largest shoe size.
+  def big_shoe_rebounds
+    size = 0
+      game_hash.each do |team, team_details|
+        team_details[:players].each do |player_name, player_details|
+          if player_details[:shoe] > size
+            size = player_details[:shoe]
+            return player_details[:rebounds]
+          end
+        end
+      end
+  end
