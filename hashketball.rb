@@ -172,3 +172,18 @@ end
   end
 
   # puts team_names_each => Brooklyn Nets, Charlotte Hornets
+
+  #returns an array of the jersey number's for the team
+  def player_numbers(team_name)
+      list_of_numbers = []
+      game_hash.each do |team, team_details|
+        if team_details[:team_name] == team_name
+          team_details[:players].each do |player_name, player_details|
+            list_of_numbers << player_details[:number]
+          end
+        end
+      end
+    list_of_numbers
+  end
+
+  puts player_numbers("Brooklyn Nets")
